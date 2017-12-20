@@ -1,12 +1,12 @@
 {
-  "name": "dota2",
+  "name": "soulbound-node-dota2",
   "version": "6.0.1",
   "dependencies": {
-    "deferred": "^0.7.8",
+    "deferred": "^0.7.9",
     "long": "^3.2.0",
     "merge": "^1.2.0",
-    "moment": "^2.19.2",
-    "protobufjs": "^6.8.0",
+    "moment": "^2.19.4",
+    "protobufjs": "^6.8.3",
     "steam": "^1.4.0",
     "winston": "^2.3.1"
   },
@@ -23,12 +23,13 @@
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/Arcana/node-dota2.git"
+    "url": "git://github.com/AlviseDandolo/node-dota2.git"
   },
   "keywords": [
     "steam",
     "valve",
-    "dota"
+    "dota",
+    "soulbound"
   ],
   "license": "MIT"
 }
