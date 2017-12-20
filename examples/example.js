@@ -15,7 +15,7 @@ global.config = require("./config");
 var onSteamLogOn = function onSteamLogOn(logonResp) {
         if (logonResp.eresult == steam.EResult.OK) {
             steamFriends.setPersonaState(steam.EPersonaState.Busy); // to display your steamClient's status as "Online"
-            steamFriends.setPersonaName("dhdeubot"); // to change its nickname
+            steamFriends.setPersonaName(global.config.steam_name); // to change its nickname
             util.log("Logged on.");
             Dota2.launch();
             Dota2.on("ready", function() {
@@ -74,7 +74,7 @@ var onSteamLogOn = function onSteamLogOn(logonResp) {
                 /* CHAT */
                 // Event based
                 // Dota2.joinChat("rj");
-                // setTimeout(function(){ Dota2.sendMessage("rj", "wowoeagnaeigniaeg"); }, 5000);
+                // setTimeout(function(){ Dota2.sendMessage("wowoeagnaeigniaeg", "rj"); }, 5000);
                 // setTimeout(function(){ Dota2.leaveChat("rj"); }, 10000);
                 /* GUILD */
                 // Dota2.requestGuildData();
@@ -96,14 +96,13 @@ var onSteamLogOn = function onSteamLogOn(logonResp) {
                 // Doing chat stuffs.
                 // var guildChannelName = util.format("Guild_%s", guildId);
                 // Dota2.joinChat(guildChannelName, Dota2.schema.DOTAChatChannelType_t.DOTAChannelType_Guild);
-                // setTimeout(function(){ Dota2.sendMessage(guildChannelName, "wowoeagnaeigniaeg"); }, 5000);
+                // setTimeout(function(){ Dota2.sendMessage("wowoeagnaeigniaeg", guildChannelName); }, 5000);
                 // setTimeout(function(){ Dota2.leaveChat(guildChannelName); }, 10000);
                 // });
                 /* LOBBIES */
-                //  Dota2.createPracticeLobby("password",
-                //                             {"game_name": "node-dota2",
+                //  Dota2.createPracticeLobby({"game_name": "node-dota2",
                 //                             "server_region": dota2.ServerRegion.PERFECTWORLDTELECOM,
-                //                             "game_mode": dota2.schema.DOTA_GameMode.DOTA_GAMEMODE_AR,
+                //                             "game_mode": dota2.schema.lookupEnum('DOTA_GameMode').values.DOTA_GAMEMODE_AR,
                 //                             "series_type": 2,
                 //                             "game_version": 1,
                 //                             "allow_cheats": false,
@@ -126,10 +125,6 @@ var onSteamLogOn = function onSteamLogOn(logonResp) {
                 // Dota2.requestLeaguesInMonth(10, 2013, 0, function(err, data) { // November 2013
                 //     console.log('Found ' + data.leagues.length + ' leagues full of schedule data :D');
                 // });
-                // Dota2.requestLeaguesInMonth(10, 2013); // November 2013
-                // Dota2.on("leaguesInMonthData",  function(month, year, leagues) {
-                //     console.log('Found ' + leagues.length + ' leagues full of schedule data :D');
-                // });
                 /* SOURCETV */
                 // Dota2.requestSourceTVGames({});
                 // Dota2.on("sourceTVGamesData", function(data) {    // May 2015
@@ -146,20 +141,23 @@ var onSteamLogOn = function onSteamLogOn(logonResp) {
                 // Dota2.setGuildAccountRole(guildId, 75028261, 3);
             });
             Dota2.on("unhandled", function(kMsg) {
-                util.log("UNHANDLED MESSAGE " + kMsg);
+                util.log("UNHANDLED MESSAGE " + dota2._getMessageName(kMsg));
             });
             // setTimeout(function(){ Dota2.exit(); }, 5000);
         }
     },
     onSteamServers = function onSteamServers(servers) {
         util.log("Received servers.");
-        fs.writeFile('servers', JSON.stringify(servers));
+        fs.writeFile('servers', JSON.stringify(servers), (err)=>{
+            if (err) {if (this.debug) util.log("Error writing ");}
+            else {if (this.debug) util.log("");}
+        });
     },
     onSteamLogOff = function onSteamLogOff(eresult) {
         util.log("Logged off from Steam.");
     },
     onSteamError = function onSteamError(error) {
-        util.log("Connection closed by server.");
+        util.log("Connection closed by server: "+error);
     };
 
 steamUser.on('updateMachineAuth', function(sentry, callback) {
@@ -178,6 +176,7 @@ var logOnDetails = {
     "password": global.config.steam_pass,
 };
 if (global.config.steam_guard_code) logOnDetails.auth_code = global.config.steam_guard_code;
+if (global.config.two_factor_code) logOnDetails.two_factor_code = global.config.two_factor_code;
 
 try {
     var sentry = fs.readFileSync('sentry');
