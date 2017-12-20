@@ -90,6 +90,9 @@ enum EGCSystemMsg {
 	k_EGCMsgGetAppFriendsListResponse = 517;
 	k_EGCMsgVacVerificationChange = 518;
 	k_EGCMsgAccountPhoneNumberChange = 519;
+	k_EGCMsgAccountTwoFactorChange = 520;
+	k_EGCMsgCheckClanMembership = 521;
+	k_EGCMsgCheckClanMembershipResponse = 522;
 }
 
 enum ESOMsg {
@@ -132,5 +135,6 @@ enum EGCToGCMsg {
 	k_EMsgGCToGCUpdateSessionStats = 162;
 	k_EMsgGCToGCUniverseStartup = 163;
 	k_EMsgGCToGCUniverseStartupResponse = 164;
+	k_EMsgGCToGCForwardAccountDetails = 165;
 }
 

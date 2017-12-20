@@ -25,6 +25,7 @@ enum DOTA_GameMode {
 	DOTA_GAMEMODE_ARDM = 20;
 	DOTA_GAMEMODE_1V1MID = 21;
 	DOTA_GAMEMODE_ALL_DRAFT = 22;
+	DOTA_GAMEMODE_TURBO = 23;
 }
 
 enum DOTA_GameState {
@@ -38,7 +39,8 @@ enum DOTA_GameState {
 	DOTA_GAMERULES_STATE_DISCONNECT = 7;
 	DOTA_GAMERULES_STATE_TEAM_SHOWCASE = 8;
 	DOTA_GAMERULES_STATE_CUSTOM_GAME_SETUP = 9;
-	DOTA_GAMERULES_STATE_LAST = 10;
+	DOTA_GAMERULES_STATE_WAIT_FOR_MAP_TO_LOAD = 10;
+	DOTA_GAMERULES_STATE_LAST = 11;
 }
 
 enum DOTA_GC_TEAM {
@@ -66,6 +68,13 @@ enum EEvent {
 	EVENT_ID_FROSTIVUS = 12;
 	EVENT_ID_WINTER_MAJOR_2016 = 13;
 	EVENT_ID_INTERNATIONAL_2016 = 14;
+	EVENT_ID_FALL_MAJOR_2016 = 15;
+	EVENT_ID_WINTER_MAJOR_2017 = 16;
+	EVENT_ID_NEW_BLOOM_2017 = 17;
+	EVENT_ID_INTERNATIONAL_2017 = 18;
+	EVENT_ID_BATTLE_PASS_REWORK = 19;
+	EVENT_ID_SINGLES_DAY_2017 = 20;
+	EVENT_ID_COUNT = 21;
 }
 
 enum DOTALeaverStatus_t {
@@ -94,6 +103,7 @@ enum Fantasy_Roles {
 	FANTASY_ROLE_UNDEFINED = 0;
 	FANTASY_ROLE_CORE = 1;
 	FANTASY_ROLE_SUPPORT = 2;
+	FANTASY_ROLE_OFFLANE = 3;
 }
 
 enum Fantasy_Team_Slots {
@@ -132,12 +142,14 @@ enum DOTAChatChannelType_t {
 	DOTAChannelType_GameAll = 11;
 	DOTAChannelType_GameAllies = 12;
 	DOTAChannelType_GameSpectator = 13;
-	DOTAChannelType_GameCoaching = 14;
 	DOTAChannelType_Cafe = 15;
 	DOTAChannelType_CustomGame = 16;
 	DOTAChannelType_Private = 17;
 	DOTAChannelType_PostGame = 18;
 	DOTAChannelType_BattleCup = 19;
+	DOTAChannelType_HLTVSpectator = 20;
+	DOTAChannelType_GameEvents = 21;
+	DOTAChannelType_Trivia = 22;
 }
 
 enum EProfileCardSlotType {
@@ -147,6 +159,7 @@ enum EProfileCardSlotType {
 	k_EProfileCardSlotType_Item = 3;
 	k_EProfileCardSlotType_Hero = 4;
 	k_EProfileCardSlotType_Emoticon = 5;
+	k_EProfileCardSlotType_Team = 6;
 }
 
 enum EMatchGroupServerStatus {
@@ -193,12 +206,17 @@ enum DOTAJoinLobbyResult {
 	DOTA_JOIN_RESULT_TIMEOUT = 11;
 }
 
-enum SelectionPriorityType {
-	UNDEFINED = 0;
-	RADIANT = 1;
-	DIRE = 2;
-	FIRST_PICK = 3;
-	SECOND_PICK = 4;
+enum DOTASelectionPriorityRules {
+	k_DOTASelectionPriorityRules_Manual = 0;
+	k_DOTASelectionPriorityRules_Automatic = 1;
+}
+
+enum DOTASelectionPriorityChoice {
+	k_DOTASelectionPriorityChoice_Invalid = 0;
+	k_DOTASelectionPriorityChoice_FirstPick = 1;
+	k_DOTASelectionPriorityChoice_SecondPick = 2;
+	k_DOTASelectionPriorityChoice_Radiant = 3;
+	k_DOTASelectionPriorityChoice_Dire = 4;
 }
 
 enum DOTAMatchVote {
@@ -228,7 +246,7 @@ enum EDOTAPlayerMMRType {
 	k_EDOTAPlayerMMRType_SoloHidden = 2;
 	k_EDOTAPlayerMMRType_GeneralCompetitive = 3;
 	k_EDOTAPlayerMMRType_SoloCompetitive = 4;
-	k_EDOTAPlayerMMRType_1v1Competitive = 5;
+	k_EDOTAPlayerMMRType_1v1Competitive_UNUSED = 5;
 	k_EDOTAPlayerMMRType_GeneralSeasonalRanked = 6;
 	k_EDOTAPlayerMMRType_SoloSeasonalRanked = 7;
 }
@@ -243,6 +261,8 @@ enum MatchType {
 	MATCH_TYPE_CASUAL_1V1 = 6;
 	MATCH_TYPE_EVENT = 7;
 	MATCH_TYPE_SEASONAL_RANKED = 8;
+	MATCH_TYPE_LOWPRI_DEPRECATED = 9;
+	MATCH_TYPE_LOWPRI_DEPRECATED2 = 10;
 }
 
 enum DOTABotDifficulty {
@@ -255,6 +275,35 @@ enum DOTABotDifficulty {
 	BOT_DIFFICULTY_EXTRA1 = 6;
 	BOT_DIFFICULTY_EXTRA2 = 7;
 	BOT_DIFFICULTY_EXTRA3 = 8;
+}
+
+enum DOTA_BOT_MODE {
+	DOTA_BOT_MODE_NONE = 0;
+	DOTA_BOT_MODE_LANING = 1;
+	DOTA_BOT_MODE_ATTACK = 2;
+	DOTA_BOT_MODE_ROAM = 3;
+	DOTA_BOT_MODE_RETREAT = 4;
+	DOTA_BOT_MODE_SECRET_SHOP = 5;
+	DOTA_BOT_MODE_SIDE_SHOP = 6;
+	DOTA_BOT_MODE_RUNE = 7;
+	DOTA_BOT_MODE_PUSH_TOWER_TOP = 8;
+	DOTA_BOT_MODE_PUSH_TOWER_MID = 9;
+	DOTA_BOT_MODE_PUSH_TOWER_BOT = 10;
+	DOTA_BOT_MODE_DEFEND_TOWER_TOP = 11;
+	DOTA_BOT_MODE_DEFEND_TOWER_MID = 12;
+	DOTA_BOT_MODE_DEFEND_TOWER_BOT = 13;
+	DOTA_BOT_MODE_ASSEMBLE = 14;
+	DOTA_BOT_MODE_ASSEMBLE_WITH_HUMANS = 15;
+	DOTA_BOT_MODE_TEAM_ROAM = 16;
+	DOTA_BOT_MODE_FARM = 17;
+	DOTA_BOT_MODE_DEFEND_ALLY = 18;
+	DOTA_BOT_MODE_EVASIVE_MANEUVERS = 19;
+	DOTA_BOT_MODE_ROSHAN = 20;
+	DOTA_BOT_MODE_ITEM = 21;
+	DOTA_BOT_MODE_WARD = 22;
+	DOTA_BOT_MODE_COMPANION = 23;
+	DOTA_BOT_MODE_TUTORIAL_BOSS = 24;
+	DOTA_BOT_MODE_MINION = 25;
 }
 
 enum MatchLanguages {
@@ -286,6 +335,13 @@ enum EMatchOutcome {
 	k_EMatchOutcome_NotScored_Leaver = 65;
 	k_EMatchOutcome_NotScored_ServerCrash = 66;
 	k_EMatchOutcome_NotScored_NeverStarted = 67;
+	k_EMatchOutcome_NotScored_Canceled = 68;
+}
+
+enum EBadgeType {
+	k_EBadgeType_TI7_Midweek = 1;
+	k_EBadgeType_TI7_Finals = 2;
+	k_EBadgeType_TI7_AllEvent = 3;
 }
 
 message CDOTAClientHardwareSpecs {
