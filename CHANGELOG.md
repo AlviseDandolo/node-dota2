@@ -1,3 +1,14 @@
+# Changelog 6.1.1
+## General
+ * Updated fantasy cards with this year's player card ID
+
+# Changelog 6.1.0
+## General
+ * Removed some trailing util.log commands
+ * Protobuf updates
+ * Attempt to fix mocha not exiting
+ * Added profile request fuction that allows fetching profile page
+
 # Changelog 6.0.0
 ## General
 Fixed some chat channel bugs
